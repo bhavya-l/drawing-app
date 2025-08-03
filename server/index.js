@@ -25,9 +25,11 @@ const handleMessage = (bytes, userId) => {
     user.state = message
     
     broadcast()
+    console.log(`User ${user.username} updated state: ${JSON.stringify(user.state)}`)
 }
 
 const handleClose = userId => {
+    console.log(`User ${users[userId].username} disconnected`)
     delete connections[userId]
     delete users[userId]
 
@@ -44,6 +46,7 @@ wsServer.on("connection", (connection, request) => {
         username,
         state: {}
     }
+    console.log(`User ${users[userId].username} connected`)
     connection.on("message", message => handleMessage(message, userId))
     connection.on("close", () => handleClose(userId))
 })

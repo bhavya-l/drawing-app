@@ -1,17 +1,16 @@
 import React from 'react';
 import './App.css';
-import CanvasBoard from './components/Canvas';
-import Toolbar from './components/Toolbar';
+import { Login } from './components/Login';
+import { Home } from './Home';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-          <CanvasBoard />
-          <Toolbar />
-      </header>
-    </div>
-  );
+  const [username, setUsername] = React.useState("")
+
+  return username ? (
+    <Home username={username}/>
+  ) : (
+    <Login onSubmit={setUsername}/>
+  )
 }
 
 export default App;
