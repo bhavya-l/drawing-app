@@ -9,10 +9,10 @@ A real-time collaborative drawing canvas built with **React**, **React-Konva**, 
 ✅ **Real-Time Collaboration**  *(in progress)* 
 Connect with others and draw together, all updates are instantly synced using WebSockets.
 
-✅ **Live Cursors**  *(in progress)* 
+✅ **Live Cursors**  
 See everyone’s cursors move across the canvas in real-time, complete with color and smooth animation.
 
-✅ **Freehand Drawing**  *(in progress)* 
+✅ **Freehand Drawing**
 Click and drag to draw smooth lines, ideal for sketching or brainstorming.
 
 ✅ **Shape Tools** *(in progress)*  
