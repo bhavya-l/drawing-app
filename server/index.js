@@ -25,7 +25,6 @@ const handleMessage = (bytes, userId) => {
     user.state = message
     
     broadcast()
-    console.log(`User ${user.username} updated state: ${JSON.stringify(user.state)}`)
 }
 
 const handleClose = userId => {

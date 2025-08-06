@@ -1,8 +1,18 @@
 import "../styles/Canvas.css";
-import { useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef } from "react";
 import useWebSocket from "react-use-websocket";
 import throttle from "lodash.throttle";
 import { Cursor } from "./Cursor";
+import {
+  ReactSketchCanvas,
+  type ReactSketchCanvasRef,
+} from "react-sketch-canvas";
+
+interface CanvasBoardProps {
+  canvasRef: RefObject<ReactSketchCanvasRef | null>;
+  username: string;
+  strokeColor: string;
+}
 
 const renderCursors = (users: any) => {
   return Object.keys(users).map((userId) => {
@@ -11,7 +21,7 @@ const renderCursors = (users: any) => {
   });
 };
 
-export default function CanvasBoard({ username }: { username: string }) {
+export default function CanvasBoard({ canvasRef, username, strokeColor }: CanvasBoardProps) {
   const WS_URL = "ws://127.0.0.1:8000";
   const socket = useWebSocket(WS_URL, {
     queryParams: { username },
@@ -37,12 +47,43 @@ export default function CanvasBoard({ username }: { username: string }) {
 
   if (socket.lastJsonMessage) {
     return (
-      <div className="canvas">{renderCursors(socket.lastJsonMessage)}</div>
+      <div>
+        <ReactSketchCanvas
+          ref={canvasRef}
+          strokeWidth={4}
+          strokeColor={strokeColor}
+          style={{
+            width: "100%",
+            minWidth: "1200px",
+            height: "500px",
+            backgroundColor: "white",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+            margin: "0 auto",
+            display: "block",
+          }}
+        />
+
+        {renderCursors(socket.lastJsonMessage)}
+      </div>
     );
   }
 
   return (
-    <div className="canvas">
-    </div>
+    <ReactSketchCanvas
+      ref={canvasRef}
+      strokeWidth={4}
+      strokeColor="red"
+      style={{
+        width: "100%",
+        maxWidth: "1200px",
+        height: "500px",
+        backgroundColor: "white",
+        border: "1px solid #ccc",
+        borderRadius: "8px",
+        margin: "0 auto",
+        display: "block",
+      }}
+    />
   );
 }
