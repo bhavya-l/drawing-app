@@ -1,5 +1,5 @@
 import "../styles/Canvas.css";
-import { RefObject, useEffect, useRef } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 import useWebSocket from "react-use-websocket";
 import throttle from "lodash.throttle";
 import { Cursor } from "./Cursor";
@@ -12,6 +12,7 @@ interface CanvasBoardProps {
   canvasRef: RefObject<ReactSketchCanvasRef | null>;
   username: string;
   strokeColor: string;
+  eraseMode: boolean;
 }
 
 const renderCursors = (users: any) => {
@@ -21,7 +22,7 @@ const renderCursors = (users: any) => {
   });
 };
 
-export default function CanvasBoard({ canvasRef, username, strokeColor }: CanvasBoardProps) {
+export default function CanvasBoard({ canvasRef, username, strokeColor, eraseMode }: CanvasBoardProps) {
   const WS_URL = "ws://127.0.0.1:8000";
   const socket = useWebSocket(WS_URL, {
     queryParams: { username },
@@ -52,6 +53,7 @@ export default function CanvasBoard({ canvasRef, username, strokeColor }: Canvas
           ref={canvasRef}
           strokeWidth={4}
           strokeColor={strokeColor}
+          
           style={{
             width: "100%",
             minWidth: "1200px",

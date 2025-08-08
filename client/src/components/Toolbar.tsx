@@ -5,16 +5,20 @@ import { type ReactSketchCanvasRef } from "react-sketch-canvas";
 interface ToolbarProps {
   canvasRef: RefObject<ReactSketchCanvasRef | null>;
   setStrokeColor: (color: string) => void;
-  strokeColor?: string;
+  strokeColor: string;
+  eraseMode: boolean;
+  setEraseMode: (mode: boolean) => void;
 }
 
 export default function Toolbar({
   canvasRef,
   setStrokeColor,
   strokeColor,
+  eraseMode,
+  setEraseMode,
 }: ToolbarProps) {
   const colorInputRef = useRef<HTMLInputElement>(null);
-  const [eraseMode, setEraseMode] = useState(true);
+  
 
   function handleStrokeColorChange(event: ChangeEvent<HTMLInputElement>) {
     setStrokeColor(event.target.value);
@@ -71,7 +75,7 @@ export default function Toolbar({
         className="toolbar-button"
         title="Eraser"
         style={{
-          border: eraseMode ? "2px solid #000" : "none", // border when erase selected
+          border: eraseMode ? "2px solid #000" : "none", 
         }}
         onClick={handleEraserClick}
       >
