@@ -18,6 +18,9 @@ Click and drag to draw smooth lines, ideal for sketching or brainstorming.
 ✅ **Shape Tools** *(in progress)*  
 Support for rectangles, circles, and more, easily create and manipulate visual elements.
 
+
+<img width="1404" height="849" alt="image" src="https://github.com/user-attachments/assets/b63248e1-242a-4c46-8a9e-49ece40a8f25" />
+
 ---
 
 ## 🚀 Tech Stack
@@ -25,7 +28,7 @@ Support for rectangles, circles, and more, easily create and manipulate visual e
 | Frontend        | Backend       | Other              |
 |-----------------|---------------|--------------------|
 | React + Vite    | Node.js       | WebSockets (ws)    |
-| React-Konva     |               | UUID for shape IDs |
+| react-sketch-canvas    |               | Canvas Elements |
 | TypeScript      |               | Perfect Cursors    |
 
 ---
