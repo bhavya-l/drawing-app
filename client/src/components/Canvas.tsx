@@ -18,7 +18,17 @@ interface CanvasBoardProps {
 const renderCursors = (users: any) => {
   return Object.keys(users).map((userId) => {
     const user = users[userId];
-    return <Cursor key={userId} point={[user.state.x, user.state.y]}></Cursor>;
+    const x = user?.state?.x ?? 0;
+    const y = user?.state?.y ?? 0;
+
+    return (
+      <Cursor
+        key={userId}
+        point={[x, y]}
+        username={user.username}
+        color={user.color}
+      />
+    );
   });
 };
 

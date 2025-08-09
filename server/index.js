@@ -12,12 +12,18 @@ const connections = {}
 const users = {}
 
 const broadcast = () => {
-    Object.keys(connections).forEach(userId => {
-        const connection = connections[userId]
-        const message = JSON.stringify(users)
-        connection.send(message)
-    })
-}
+    Object.keys(connections).forEach(targetUserId => {
+        const connection = connections[targetUserId];
+
+        // Create a copy excluding this user's own data
+        const others = Object.fromEntries(
+            Object.entries(users).filter(([userId]) => userId !== targetUserId)
+        );
+
+        connection.send(JSON.stringify(others));
+    });
+};
+
 
 const handleMessage = (bytes, userId) => {
     const message = JSON.parse(bytes.toString())
@@ -35,6 +41,11 @@ const handleClose = userId => {
     broadcast()
 }
 
+function getRandomColor() {
+    const colors = ["#ff4d4d", "#4d94ff", "#4dff4d", "#ffb84d", "#b84dff", "#4dffff", "#ff4da6"];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
 wsServer.on("connection", (connection, request) => {
     const { username } = url.parse(request.url, true).query
     const userId = uuidv4() 
@@ -43,6 +54,7 @@ wsServer.on("connection", (connection, request) => {
  
     users[userId] = {
         username,
+        color: getRandomColor(),
         state: {}
     }
     console.log(`User ${users[userId].username} connected`)
